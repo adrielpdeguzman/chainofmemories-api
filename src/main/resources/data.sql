@@ -1,0 +1,2 @@
+insert into user(username, password, email, first_name, last_name) values ('adrielpdeguzman', 'P@ssw0rd', 'adrielpdeguzman@icloud.com', 'Adriel', 'de Guzman');
+insert into user(username, password, email, first_name, last_name) values ('monaliceperez', 'P@ssw0rd', 'monaliceperez@icloud.com', 'Monalice', 'Perez');
