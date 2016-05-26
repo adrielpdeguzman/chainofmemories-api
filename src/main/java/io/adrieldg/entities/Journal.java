@@ -2,6 +2,7 @@ package io.adrieldg.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -73,7 +74,7 @@ public class Journal {
 		this.specialEvents = specialEvents;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	public User getUser() {
 		return user;
