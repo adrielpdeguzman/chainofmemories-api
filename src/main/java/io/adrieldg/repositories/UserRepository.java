@@ -1,15 +1,13 @@
 package io.adrieldg.repositories;
 
-import java.util.Optional;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import io.adrieldg.entities.User;
 
-@RepositoryRestResource(path = "users")
-public interface UserRepository extends CrudRepository<User, Long> {
-	Optional<User> findByUsername(String username);
+@RepositoryRestResource(path = "users", exported = false)
+public interface UserRepository extends Repository<User, Long> {
+	User save(User user);
 
-	Optional<User> findByEmail(String email);
+	User findByUsername(String username);
 }

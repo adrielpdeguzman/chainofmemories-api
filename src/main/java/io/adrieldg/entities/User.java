@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "users")
 public class User {
-
 	private Set<Journal> journals = new HashSet<Journal>();
 	private Long id;
 	private String username;
