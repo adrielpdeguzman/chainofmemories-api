@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.adrieldg.repositories.JournalRepository;
+import io.adrieldg.services.UserService;
 
 @RestController
 @RequestMapping("/journals")
@@ -19,7 +20,8 @@ public class JournalController {
 	private Date ANNIVERSARY_DATE;
 
 	@Autowired
-	public JournalController(JournalRepository journalRepository, @Value("${global.anniversary.date}") String date) {
+	public JournalController(JournalRepository journalRepository, UserService userService,
+			@Value("${global.anniversary.date}") String date) {
 		this.journalRepository = journalRepository;
 
 		try {
@@ -29,4 +31,5 @@ public class JournalController {
 			e.printStackTrace();
 		}
 	}
+
 }

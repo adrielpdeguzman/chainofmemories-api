@@ -24,14 +24,15 @@ import io.adrieldg.entities.Journal;
 import io.adrieldg.entities.User;
 import io.adrieldg.repositories.JournalRepository;
 import io.adrieldg.repositories.UserRepository;
+import io.adrieldg.services.UserService;
 
 @SpringBootApplication
 public class Application {
 
 	@Bean
-	CommandLineRunner init(UserRepository userRepository, JournalRepository journalRepository) {
+	CommandLineRunner init(UserService userService, JournalRepository journalRepository) {
 		return (evt) -> {
-			User user = userRepository.save(new User("test", "test", "test@test.test", "Test", "Test"));
+			User user = userService.registerUser(new User("test", "test", "test@test.test", "Test", "Test"));
 			journalRepository.save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum"));
 		};
 	}
@@ -60,7 +61,6 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 				User user = userRepository.findByUsername(username);
 				if (user != null) {
-					System.out.println(user.getPassword());
 					return new org.springframework.security.core.userdetails.User(user.getUsername(),
 							user.getPassword(), true, true, true, true, AuthorityUtils.createAuthorityList("USER"));
 				} else {

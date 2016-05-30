@@ -5,9 +5,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import io.adrieldg.entities.User;
 
-@RepositoryRestResource(path = "users", exported = false)
+@RepositoryRestResource(path = "users")
 public interface UserRepository extends Repository<User, Long> {
 	User save(User user);
+
+	User findOne(Long id);
 
 	User findByUsername(String username);
 }
