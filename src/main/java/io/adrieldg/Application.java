@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 import io.adrieldg.entities.Journal;
 import io.adrieldg.entities.User;
@@ -27,6 +28,7 @@ import io.adrieldg.repositories.UserRepository;
 import io.adrieldg.services.UserService;
 
 @SpringBootApplication
+@EnableAuthorizationServer
 public class Application {
 
 	@Bean
