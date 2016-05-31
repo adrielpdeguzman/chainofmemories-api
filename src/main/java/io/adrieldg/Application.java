@@ -14,7 +14,6 @@ import io.adrieldg.services.UserService;
 
 @SpringBootApplication
 public class Application {
-
 	@Bean
 	CommandLineRunner init(UserService userService, JournalRepository journalRepository) {
 		return (evt) -> {

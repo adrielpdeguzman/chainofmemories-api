@@ -1,5 +1,7 @@
 package io.adrieldg.configurations;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 @Configuration
 public class OAuth2ServerConfiguration {
@@ -38,7 +40,7 @@ public class OAuth2ServerConfiguration {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
-			http.authorizeRequests().antMatchers("/**").authenticated();
+			http.authorizeRequests().anyRequest().authenticated();
 			// @formatter:on
 		}
 
@@ -47,8 +49,11 @@ public class OAuth2ServerConfiguration {
 	@Configuration
 	@EnableAuthorizationServer
 	protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+		@Autowired
+		private DataSource dataSource;
 
-		private TokenStore tokenStore = new InMemoryTokenStore();
+		@Autowired
+		private TokenStore tokenStore;
 
 		@Autowired
 		@Qualifier("authenticationManagerBean")
@@ -68,7 +73,7 @@ public class OAuth2ServerConfiguration {
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 			// @formatter:off
-			clients.inMemory().withClient("chainofmemories").authorizedGrantTypes("password", "refresh_token")
+			clients.jdbc(dataSource).withClient("chainofmemories").authorizedGrantTypes("password", "refresh_token")
 					.authorities("USER").scopes("read", "write").resourceIds(RESOURCE_ID).secret("launch_codes");
 			// @formatter:on
 		}
@@ -82,5 +87,9 @@ public class OAuth2ServerConfiguration {
 			return tokenServices;
 		}
 
+		@Bean
+		public TokenStore tokenStore() {
+			return new JdbcTokenStore(dataSource);
+		}
 	}
 }
