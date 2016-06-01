@@ -1,8 +1,10 @@
-
 server:
-  context-path: /chainofmemories-api
-  port: 8080
+  port: 8081
   
+spring:
+  devtools:
+    livereload:
+      enabled: false
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
