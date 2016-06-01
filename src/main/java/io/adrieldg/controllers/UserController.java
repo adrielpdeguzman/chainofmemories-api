@@ -9,11 +9,11 @@ import io.adrieldg.services.UserService;
 
 @RestController
 public class UserController {
-	@Autowired
-	private UserService userService;
+  @Autowired
+  private UserService userService;
 
-	// @RequestMapping(path = "/users", method = RequestMethod.POST)
-	User save(@RequestBody User user) {
-		return userService.registerUser(user);
-	}
+  // @RequestMapping(path = "/users", method = RequestMethod.POST)
+  User save(@RequestBody User user) {
+    return userService.registerUser(user);
+  }
 }

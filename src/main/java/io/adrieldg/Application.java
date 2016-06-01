@@ -14,15 +14,16 @@ import io.adrieldg.services.UserService;
 
 @SpringBootApplication
 public class Application {
-	@Bean
-	CommandLineRunner init(UserService userService, JournalRepository journalRepository) {
-		return (evt) -> {
-			User user = userService.registerUser(new User("test", "test", "test@test.test", "Test", "Test"));
-			journalRepository.save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum"));
-		};
-	}
+  @Bean
+  CommandLineRunner init(UserService userService, JournalRepository journalRepository) {
+    return (evt) -> {
+      User user =
+          userService.registerUser(new User("test", "test", "test@test.test", "Test", "Test"));
+      journalRepository.save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum"));
+    };
+  }
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
 }

@@ -20,43 +20,43 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 @EnableAuthorizationServer
 public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-	@Autowired
-	private AuthenticationManager auth;
+  @Autowired
+  private AuthenticationManager auth;
 
-	@Autowired
-	private DataSource dataSource;
+  @Autowired
+  private DataSource dataSource;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
-	@Bean
-	public JdbcTokenStore tokenStore() {
-		return new JdbcTokenStore(dataSource);
-	}
+  @Bean
+  public JdbcTokenStore tokenStore() {
+    return new JdbcTokenStore(dataSource);
+  }
 
-	@Bean
-	protected AuthorizationCodeServices authorizationCodeServices() {
-		return new JdbcAuthorizationCodeServices(dataSource);
-	}
+  @Bean
+  protected AuthorizationCodeServices authorizationCodeServices() {
+    return new JdbcAuthorizationCodeServices(dataSource);
+  }
 
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		security.passwordEncoder(passwordEncoder);
-	}
+  @Override
+  public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    security.passwordEncoder(passwordEncoder);
+  }
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(auth)
-				.tokenStore(tokenStore()).approvalStoreDisabled();
-	}
+  @Override
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(auth)
+        .tokenStore(tokenStore()).approvalStoreDisabled();
+  }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		// @formatter:off
-		clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient("chainofmemories-client")
-				.secret("keyblade").authorizedGrantTypes("password", "refresh_token").scopes("read", "write", "trust")
-				.resourceIds("oauth2-resource");
-		// @formatter:on
-	}
+  @Override
+  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    // @formatter:off
+    clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient("chainofmemories-client")
+        .secret("keyblade").authorizedGrantTypes("password", "refresh_token")
+        .scopes("read", "write", "trust").resourceIds("oauth2-resource");
+    // @formatter:on
+  }
 
 }

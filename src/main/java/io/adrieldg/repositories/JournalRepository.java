@@ -13,12 +13,12 @@ import io.adrieldg.entities.Journal;
 
 @RepositoryRestResource(path = "journals")
 public interface JournalRepository extends CrudRepository<Journal, Long> {
-	@RestResource(path = "byVolume")
-	@OrderBy("publishDate ASC")
-	Collection<Journal> findByVolumeOrderByPublishDateAsc(@Param("v") Integer volume);
+  @RestResource(path = "byVolume")
+  @OrderBy("publishDate ASC")
+  Collection<Journal> findByVolumeOrderByPublishDateAsc(@Param("v") Integer volume);
 
-	@RestResource(path = "byContentsAndVolume")
-	@OrderBy("publishDate ASC")
-	Collection<Journal> findByContentsContainingIgnoreCaseAndVolumeOrderByPublishDateAsc(@Param("q") String contents,
-			@Param("v") Integer volume);
+  @RestResource(path = "byContentsAndVolume")
+  @OrderBy("publishDate ASC")
+  Collection<Journal> findByContentsContainingIgnoreCaseAndVolumeOrderByPublishDateAsc(
+      @Param("q") String contents, @Param("v") Integer volume);
 }
