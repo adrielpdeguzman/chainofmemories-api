@@ -6,7 +6,7 @@
 	<groupId>io.adrieldg</groupId>
 	<artifactId>chainofmemories-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>chainofmemories-api</name>
 	<description>Java port of Chain of Memories</description>
