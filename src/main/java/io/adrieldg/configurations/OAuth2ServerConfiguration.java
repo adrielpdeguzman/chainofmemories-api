@@ -52,11 +52,8 @@ public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdap
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    // @formatter:off
     clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient("chainofmemories-client")
         .secret("keyblade").authorizedGrantTypes("password", "refresh_token")
-        .scopes("read", "write", "trust").resourceIds("oauth2-resource");
-    // @formatter:on
+        .scopes("read", "write", "trust");
   }
-
 }

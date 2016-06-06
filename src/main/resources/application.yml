@@ -5,6 +5,7 @@ spring:
   devtools:
     livereload:
       enabled: false
+
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver

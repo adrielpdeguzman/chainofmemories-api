@@ -2,24 +2,28 @@ package io.adrieldg.entities;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "journals",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "publishDate"})})
-@Data
+@Getter
+@Setter
+@ToString
 public class Journal {
-  @ManyToOne(cascade = CascadeType.MERGE)
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @ManyToOne
+  @JsonBackReference
   private User user;
   @Id
   @GeneratedValue
@@ -30,8 +34,6 @@ public class Journal {
   private String contents;
   private String specialEvents;
   
-  public Journal() {}
-  
   public Journal(User user, Date publishDate, int volume, int day, String contents,
       String specialEvents) {
     this.user = user;
@@ -40,5 +42,9 @@ public class Journal {
     this.day = day;
     this.contents = contents;
     this.specialEvents = specialEvents;
+  }
+  
+  Journal() {
+    
   }
 }
