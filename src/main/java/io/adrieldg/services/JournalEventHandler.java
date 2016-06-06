@@ -15,10 +15,10 @@ import io.adrieldg.repositories.UserRepository;
 public class JournalEventHandler {
   @Autowired
   private UserRepository userRepository;
-  private final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
   @HandleBeforeCreate
   public void handleJournalCreate(Journal journal) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     journal.setUser(userRepository.findByUsername(auth.getName()));
   }
 }
