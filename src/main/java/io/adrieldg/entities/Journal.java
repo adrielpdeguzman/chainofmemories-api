@@ -30,6 +30,8 @@ public class Journal {
   private String contents;
   private String specialEvents;
   
+  public Journal() {}
+  
   public Journal(User user, Date publishDate, int volume, int day, String contents,
       String specialEvents) {
     this.user = user;
