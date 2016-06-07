@@ -46,8 +46,7 @@ public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdap
 
   @Override
   public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(auth)
-        .tokenStore(tokenStore()).approvalStoreDisabled();
+    endpoints.authenticationManager(auth).tokenStore(tokenStore());
   }
 
   @Override
