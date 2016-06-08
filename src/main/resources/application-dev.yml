@@ -6,9 +6,13 @@ spring:
     livereload:
       enabled: false
       
-oauth2:
-  clientId: chainofmemories-client
-  clientSecret: keyblade
-  ids: chainofmemories
-  authorizedGrantTypes: password,refresh_token
-  scopes: read,write,trust
+security:
+  oauth2:
+    client:
+      clientId: chainofmemories-client
+      clientSecret: keyblade
+      ids: chainofmemories
+      authorizedGrantTypes: password,refresh_token
+      scopes: read,write,trust
+    resource:
+      userInfoUri: http://localhost:8081/user 

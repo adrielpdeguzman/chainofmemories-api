@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
   @Autowired
   private AuthenticationManager auth;
@@ -30,15 +30,15 @@ public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdap
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Value("${oauth2.clientId}")
+  @Value("${security.oauth2.client.clientId}")
   private String clientId;
-  @Value("${oauth2.clientSecret}")
+  @Value("${security.oauth2.client.clientSecret}")
   private String clientSecret;
-  @Value("${oauth2.authorizedGrantTypes}")
+  @Value("${security.oauth2.client.authorizedGrantTypes}")
   private String[] authorizedGrantTypes;
-  @Value("${oauth2.scopes}")
+  @Value("${security.oauth2.client.scopes}")
   private String[] scopes;
-  @Value("${oauth2.ids}")
+  @Value("${security.oauth2.client.ids}")
   private String[] ids;
 
   @Bean
