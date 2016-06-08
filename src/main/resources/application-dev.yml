@@ -1,0 +1,14 @@
+server:
+  port: 8081
+  
+spring:
+  devtools:
+    livereload:
+      enabled: false
+      
+oauth2:
+  clientId: chainofmemories-client
+  clientSecret: keyblade
+  ids: chainofmemories
+  authorizedGrantTypes: password,refresh_token
+  scopes: read,write,trust

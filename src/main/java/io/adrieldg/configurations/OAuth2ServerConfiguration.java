@@ -3,6 +3,7 @@ package io.adrieldg.configurations;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,17 @@ public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdap
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Value("${oauth2.clientId}")
+  private String clientId;
+  @Value("${oauth2.clientSecret}")
+  private String clientSecret;
+  @Value("${oauth2.authorizedGrantTypes}")
+  private String[] authorizedGrantTypes;
+  @Value("${oauth2.scopes}")
+  private String[] scopes;
+  @Value("${oauth2.ids}")
+  private String[] ids;
+
   @Bean
   public JdbcTokenStore tokenStore() {
     return new JdbcTokenStore(dataSource);
@@ -51,8 +63,8 @@ public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdap
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient("chainofmemories-client")
-        .secret("keyblade").authorizedGrantTypes("password", "refresh_token")
-        .scopes("read", "write", "trust");
+    clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(this.clientId)
+        .secret(this.clientSecret).authorizedGrantTypes(this.authorizedGrantTypes)
+        .scopes(this.scopes).resourceIds(this.ids);
   }
 }
