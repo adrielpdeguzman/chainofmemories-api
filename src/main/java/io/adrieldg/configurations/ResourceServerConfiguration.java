@@ -27,7 +27,7 @@ public class ResourceServerConfiguration extends GlobalMethodSecurityConfigurati
   @RequestMapping("/me")
   public Map<String, String> me(Principal principal) {
     Map<String, String> map = new LinkedHashMap<>();
-    map.put("username", principal.getName());
+    map.put("name", principal.getName());
     return map;
   }
 
