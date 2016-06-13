@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 @Configuration
@@ -41,30 +39,32 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
   @Value("${security.oauth2.client.ids}")
   private String[] ids;
 
-  @Bean
-  public JdbcTokenStore tokenStore() {
-    return new JdbcTokenStore(dataSource);
-  }
-
-  @Bean
-  protected AuthorizationCodeServices authorizationCodeServices() {
-    return new JdbcAuthorizationCodeServices(dataSource);
-  }
-
   @Override
-  public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-    security.passwordEncoder(passwordEncoder);
-  }
-
-  @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    endpoints.authenticationManager(auth).tokenStore(tokenStore());
+  public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+    oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+        .passwordEncoder(passwordEncoder);
   }
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(this.clientId)
-        .secret(this.clientSecret).authorizedGrantTypes(this.authorizedGrantTypes)
-        .scopes(this.scopes).resourceIds(this.ids);
+    /*@formatter:off*/
+    clients.jdbc(dataSource)
+        .passwordEncoder(passwordEncoder)
+        .withClient(this.clientId)
+        .secret(this.clientSecret)
+        .authorizedGrantTypes(this.authorizedGrantTypes)
+        .scopes(this.scopes)
+        .resourceIds(this.ids);
+    /*@formatter:on*/
+  }
+
+  @Override
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    endpoints.tokenStore(tokenStore()).authenticationManager(auth);
+  }
+
+  @Bean
+  public JdbcTokenStore tokenStore() {
+    return new JdbcTokenStore(dataSource);
   }
 }

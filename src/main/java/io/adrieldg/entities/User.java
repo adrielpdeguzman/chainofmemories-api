@@ -23,7 +23,7 @@ import lombok.ToString;
 @Table(name = "users")
 @Setter
 @Getter
-@ToString
+@ToString(exclude = "password")
 public class User {
   @OneToMany(mappedBy = "user")
   @JsonBackReference
