@@ -34,10 +34,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
   private String clientSecret;
   @Value("${security.oauth2.client.authorizedGrantTypes}")
   private String[] authorizedGrantTypes;
-  @Value("${security.oauth2.client.scopes}")
-  private String[] scopes;
-  @Value("${security.oauth2.client.ids}")
-  private String[] ids;
+  @Value("${security.oauth2.client.scope}")
+  private String[] scope;
 
   @Override
   public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
@@ -53,8 +51,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         .withClient(this.clientId)
         .secret(this.clientSecret)
         .authorizedGrantTypes(this.authorizedGrantTypes)
-        .scopes(this.scopes)
-        .resourceIds(this.ids);
+        .scopes(this.scope);
     /*@formatter:on*/
   }
 

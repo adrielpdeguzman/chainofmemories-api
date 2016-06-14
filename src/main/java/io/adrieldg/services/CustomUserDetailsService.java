@@ -1,4 +1,4 @@
-package io.adrieldg.configurations;
+package io.adrieldg.services;
 /*
  * Copyright 2014-2015 the original author or authors.
  *
