@@ -13,5 +13,6 @@ security:
       clientSecret: keyblade
       authorizedGrantTypes: password,refresh_token
       scope: read,write,trust
+      id: chainofmemories
     resource:
       userInfoUri: http://localhost:8081/me
