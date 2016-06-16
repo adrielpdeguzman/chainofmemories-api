@@ -28,4 +28,7 @@ public interface JournalRepository extends PagingAndSortingRepository<Journal, L
 
   @Query(value = "select * from journals order by rand() limit 1", nativeQuery = true)
   Journal findRandom();
+
+  @Query(value = "select volume from journals order by volume desc limit 1", nativeQuery = true)
+  Integer getCurrentVolume();
 }
