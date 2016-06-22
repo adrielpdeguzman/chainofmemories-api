@@ -5,6 +5,9 @@ spring:
   devtools:
     livereload:
       enabled: false
+
+global:
+  clientUrl: http://localhost:8080
       
 security:
   oauth2:
