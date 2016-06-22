@@ -6,6 +6,10 @@ spring:
     livereload:
       enabled: false
 
+logging:
+  level:
+    io.adrieldg: DEBUG
+
 global:
   clientUrl: http://localhost:8080
       
