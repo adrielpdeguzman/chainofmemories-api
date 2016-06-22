@@ -15,14 +15,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "users")
-@Setter
-@Getter
+@Data
 @ToString(exclude = "password")
 public class User {
   @OneToMany(mappedBy = "user")
@@ -32,6 +32,7 @@ public class User {
   @GeneratedValue
   private Long id;
   @Column(unique = true)
+  @JsonIgnore
   private String username;
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)

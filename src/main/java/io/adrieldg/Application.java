@@ -24,7 +24,8 @@ public class Application {
     return (evt) -> {
       User user = userRepository
           .save(new User("test", passwordEncoder.encode("test"), "test@test.test", "Test", "Test"));
-      journalRepository.save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum"));
+      journalRepository
+          .save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum"));
     };
   }
 

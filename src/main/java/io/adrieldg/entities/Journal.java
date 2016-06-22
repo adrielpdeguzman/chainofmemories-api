@@ -1,39 +1,42 @@
 package io.adrieldg.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
 @Table(name = "journals",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "publishDate"})})
-@Getter
-@Setter
-@ToString
+@Data
 public class Journal {
-  @ManyToOne
-  @JsonBackReference
+  @ManyToOne 
   private User user;
   @Id
   @GeneratedValue
   private Long id;
+  @Temporal(TemporalType.DATE)
   private Date publishDate;
   private int volume;
   private int day;
   private String contents;
   private String specialEvents;
   
+  private LocalDateTime created;
+  private LocalDateTime modified;
+
   public Journal(User user, Date publishDate, int volume, int day, String contents,
       String specialEvents) {
     this.user = user;
@@ -43,8 +46,18 @@ public class Journal {
     this.contents = contents;
     this.specialEvents = specialEvents;
   }
-  
+
   Journal() {
-    
+
+  }
+  
+  @PrePersist
+  protected void onCreate() {
+    created = LocalDateTime.now();
+  }
+  
+  @PreUpdate
+  protected void onUpdate() {
+    modified = LocalDateTime.now();
   }
 }

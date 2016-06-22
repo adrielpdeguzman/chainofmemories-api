@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import io.adrieldg.entities.User;
 
-@RepositoryRestResource(path = "users")
+@RepositoryRestResource(exported = false)
 public interface UserRepository extends Repository<User, Long> {
   User save(User user);
 
