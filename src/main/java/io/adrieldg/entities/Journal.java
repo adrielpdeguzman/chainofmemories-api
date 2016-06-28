@@ -46,6 +46,11 @@ public class Journal {
     this.specialEvents = specialEvents;
   }
 
+  public Journal(int volume, Date publishDate) {
+    this.volume = volume;
+    this.publishDate = publishDate;
+  }
+
   Journal() {
 
   }
