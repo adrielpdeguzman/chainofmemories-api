@@ -30,7 +30,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    /*@formatter:off*/
+    web.ignoring()
+            .antMatchers(HttpMethod.OPTIONS, "/**")
+            // TODO Remove on production
+            .antMatchers("/console/**");
+    /*@formatter:on*/
   }
 
   @Override
