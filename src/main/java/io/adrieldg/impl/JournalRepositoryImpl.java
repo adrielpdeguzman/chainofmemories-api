@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -68,6 +69,8 @@ public class JournalRepositoryImpl implements JournalRepositoryCustom {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     ArrayNode datesWithoutEntry = factory.arrayNode();
     LocalDate anniversaryDate = LocalDate.parse(this.anniversary, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    List<LocalDate> dates = new ArrayList<LocalDate>();
+    List<LocalDate> datesWithEntry = new ArrayList<LocalDate>();
     long days = ChronoUnit.DAYS.between(anniversaryDate, LocalDate.now());
 
     CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -79,13 +82,19 @@ public class JournalRepositoryImpl implements JournalRepositoryCustom {
     q.orderBy(cb.desc(j.get("publishDate")));
 
     List<Journal> results = em.createQuery(q).getResultList();
+    results.forEach((journal) -> {
+      datesWithEntry.add(LocalDate.parse(journal.getPublishDate().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    });
 
-    for (long i=days; i >= 0; i--) {
-      LocalDate d = anniversaryDate.plusDays(i);
-      if (!results.contains(d)) {
-        datesWithoutEntry.add(d.toString());
-      }
+    for (long i = days; i >= 0; i--) {
+      dates.add(anniversaryDate.plusDays(i));
     }
+
+    dates.forEach((date) -> {
+      if (!datesWithEntry.contains(date)) {
+        datesWithoutEntry.add(date.toString());
+      }
+    });
 
     return datesWithoutEntry.toString();
   }
