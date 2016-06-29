@@ -32,9 +32,9 @@ public class Application {
       User user = userRepository
           .save(new User("test", passwordEncoder.encode("test"), "test@test.test", "Test", "Test"));
       journalRepository
-          .save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum"));
+          .save(new Journal(user, new Date(), 1, 1, "Lorem ipsum", "Lorem ipsum\nNew Line"));
 
-      logger.debug("ef051cc8-e730-4036-9bce-2b933bfa9ca1");
+      logger.debug("e5b23cd8-b49b-4ea6-90ad-bbf7b1bc65ff");
     };
   }
 }

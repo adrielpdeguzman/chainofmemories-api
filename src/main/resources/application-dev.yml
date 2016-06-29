@@ -25,5 +25,6 @@ security:
       authorizedGrantTypes: password,refresh_token
       scope: read,write,trust
       id: chainofmemories
+      accessTokenValiditySeconds: -1
     resource:
       userInfoUri: http://localhost:8081/me
