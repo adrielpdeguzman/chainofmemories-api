@@ -3,6 +3,7 @@ package io.adrieldg.entities;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,8 +31,8 @@ public class Journal {
   private Date publishDate;
   private int volume;
   private int day;
-  private String contents;
-  private String specialEvents;
+  @Column(length = 10946) private String contents;
+  @Column(length = 610) private String specialEvents;
   
   private LocalDateTime created;
   private LocalDateTime modified;
@@ -48,6 +49,10 @@ public class Journal {
 
   public Journal(int volume, Date publishDate) {
     this.volume = volume;
+    this.publishDate = publishDate;
+  }
+
+  public Journal(Date publishDate) {
     this.publishDate = publishDate;
   }
 

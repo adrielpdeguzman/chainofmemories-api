@@ -16,6 +16,7 @@ logging:
 
 global:
   clientUrl: http://localhost:8080
+  anniversary: 2013-12-07
       
 security:
   oauth2:

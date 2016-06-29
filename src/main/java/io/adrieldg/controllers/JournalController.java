@@ -18,4 +18,10 @@ public class JournalController {
   String getVolumesWithStartDate() {
     return journalRepository.getVolumesWithStartDate();
   }
+
+  @RequestMapping(path = "journals/search/getDatesWithoutEntry", method = RequestMethod.GET,
+          produces = "application/json")
+  String getDatesWithoutEntry() {
+    return journalRepository.getDatesWithoutEntry();
+  }
 }
