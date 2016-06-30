@@ -1,5 +1,9 @@
 package io.adrieldg.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,10 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -32,7 +32,6 @@ public class User {
   @GeneratedValue
   private Long id;
   @Column(unique = true)
-  @JsonIgnore
   private String username;
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)
