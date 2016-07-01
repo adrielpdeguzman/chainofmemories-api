@@ -7,9 +7,8 @@ import io.adrieldg.entities.User;
 
 @RepositoryRestResource(exported = false)
 public interface UserRepository extends Repository<User, Long> {
-  User save(User user);
 
-  User findOne(Long id);
+  User save(User user);
 
   User findByUsername(String username);
 }

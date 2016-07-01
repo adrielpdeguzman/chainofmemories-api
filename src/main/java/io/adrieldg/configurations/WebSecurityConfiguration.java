@@ -31,9 +31,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
     /*@formatter:off*/
     web.ignoring()
-            .antMatchers(HttpMethod.OPTIONS, "/**")
-            // TODO Remove on production
-            .antMatchers("/console/**");
+      .antMatchers(HttpMethod.OPTIONS, "/**")
+      // TODO Remove on production
+      .antMatchers("/console/**");
     /*@formatter:on*/
   }
 
@@ -57,7 +57,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     /*@formatter:off*/
     http.authorizeRequests()
-        .anyRequest().authenticated();
+      .anyRequest().authenticated();
     /*@formatter:on*/
   }
 
