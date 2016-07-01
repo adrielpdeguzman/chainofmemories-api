@@ -48,9 +48,7 @@ public class Journal {
     this.publishDate = publishDate;
   }
 
-  Journal() {
-
-  }
+  Journal() {}
 
   @PrePersist
   protected void onCreate() {

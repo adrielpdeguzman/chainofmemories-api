@@ -15,6 +15,7 @@ import io.adrieldg.repositories.UserRepository;
 
 @SpringBootApplication
 public class Application {
+
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   @Autowired
   private PasswordEncoder passwordEncoder;
