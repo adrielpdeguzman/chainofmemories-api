@@ -21,7 +21,7 @@ public class ResourceServerConfiguration extends GlobalMethodSecurityConfigurati
 
   @Override
   protected MethodSecurityExpressionHandler createExpressionHandler() {
-      return new OAuth2MethodSecurityExpressionHandler();
+    return new OAuth2MethodSecurityExpressionHandler();
   }
 
   @RequestMapping("/me")
@@ -30,6 +30,5 @@ public class ResourceServerConfiguration extends GlobalMethodSecurityConfigurati
     map.put("name", principal.getName());
     return map;
   }
-
 
 }

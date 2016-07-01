@@ -1,17 +1,6 @@
 package io.adrieldg.impl;
 
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +12,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.adrieldg.entities.Journal;
 import io.adrieldg.repositories.JournalRepositoryCustom;
@@ -68,7 +68,8 @@ public class JournalRepositoryImpl implements JournalRepositoryCustom {
   public String getDatesWithoutEntry() {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     ArrayNode datesWithoutEntry = factory.arrayNode();
-    LocalDate anniversaryDate = LocalDate.parse(this.anniversary, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    LocalDate anniversaryDate =
+        LocalDate.parse(this.anniversary, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     List<LocalDate> dates = new ArrayList<LocalDate>();
     List<LocalDate> datesWithEntry = new ArrayList<LocalDate>();
     long days = ChronoUnit.DAYS.between(anniversaryDate, LocalDate.now());
@@ -83,7 +84,8 @@ public class JournalRepositoryImpl implements JournalRepositoryCustom {
 
     List<Journal> results = em.createQuery(q).getResultList();
     results.forEach((journal) -> {
-      datesWithEntry.add(LocalDate.parse(journal.getPublishDate().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+      datesWithEntry.add(LocalDate.parse(journal.getPublishDate().toString(),
+          DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     });
 
     for (long i = days; i >= 0; i--) {

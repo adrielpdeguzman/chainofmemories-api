@@ -3,17 +3,7 @@ package io.adrieldg.entities;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import lombok.Data;
 
@@ -22,7 +12,7 @@ import lombok.Data;
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "publishDate"})})
 @Data
 public class Journal {
-  @ManyToOne 
+  @ManyToOne
   private User user;
   @Id
   @GeneratedValue
@@ -31,9 +21,11 @@ public class Journal {
   private Date publishDate;
   private int volume;
   private int day;
-  @Column(length = 10946) private String contents;
-  @Column(length = 610) private String specialEvents;
-  
+  @Column(length = 10946)
+  private String contents;
+  @Column(length = 610)
+  private String specialEvents;
+
   private LocalDateTime created;
   private LocalDateTime modified;
 
@@ -59,12 +51,12 @@ public class Journal {
   Journal() {
 
   }
-  
+
   @PrePersist
   protected void onCreate() {
     created = LocalDateTime.now();
   }
-  
+
   @PreUpdate
   protected void onUpdate() {
     modified = LocalDateTime.now();

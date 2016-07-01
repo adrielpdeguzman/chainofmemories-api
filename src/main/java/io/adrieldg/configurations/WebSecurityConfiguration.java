@@ -22,11 +22,10 @@ import io.adrieldg.services.CustomUserDetailsService;
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Value("${global.clientUrl}")
-  private String clientUrl;
-
   @Autowired
   CustomUserDetailsService userDetailsService;
+  @Value("${global.clientUrl}")
+  private String clientUrl;
 
   @Override
   public void configure(WebSecurity web) throws Exception {

@@ -20,7 +20,7 @@ public class JournalController {
   }
 
   @RequestMapping(path = "journals/search/getDatesWithoutEntry", method = RequestMethod.GET,
-          produces = "application/json")
+      produces = "application/json")
   String getDatesWithoutEntry() {
     return journalRepository.getDatesWithoutEntry();
   }

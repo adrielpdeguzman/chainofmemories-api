@@ -1,24 +1,15 @@
 package io.adrieldg.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
@@ -49,9 +40,9 @@ public class User {
     this.firstName = firstName;
     this.lastName = lastName;
   }
-  
+
   User() {
-    
+
   }
 
   @JsonIgnore
