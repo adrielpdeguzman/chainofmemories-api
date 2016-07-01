@@ -41,9 +41,7 @@ public class User {
     this.lastName = lastName;
   }
 
-  User() {
-
-  }
+  User() {}
 
   @JsonIgnore
   public String getPassword() {

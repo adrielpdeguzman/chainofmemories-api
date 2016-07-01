@@ -30,5 +30,4 @@ public class ResourceServerConfiguration extends GlobalMethodSecurityConfigurati
     map.put("name", principal.getName());
     return map;
   }
-
 }

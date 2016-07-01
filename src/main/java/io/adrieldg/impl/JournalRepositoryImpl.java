@@ -34,6 +34,7 @@ public class JournalRepositoryImpl implements JournalRepositoryCustom {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   @Autowired
   EntityManager em;
+
   @Autowired
   UserRepository userRepository;
 
