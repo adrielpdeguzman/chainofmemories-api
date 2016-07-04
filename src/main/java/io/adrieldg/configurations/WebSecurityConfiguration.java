@@ -67,6 +67,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowCredentials(true);
     config.addAllowedOrigin(this.clientUrl);
+    // TODO: remove on production
+    config.addAllowedOrigin("http://172.16.1.39:8080");
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
     source.registerCorsConfiguration("/**", config);
