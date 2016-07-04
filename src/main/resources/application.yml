@@ -1,3 +1,5 @@
+global:
+  anniversary: 2013-12-07
 spring:
   profiles:
-    active: dev
+    active: staging

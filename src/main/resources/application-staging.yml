@@ -1,0 +1,28 @@
+server:
+  contextPath: /api/v1/
+  port: 18080
+logging:
+  level:
+    io.adrieldg: warn
+global:
+  clientUrl: http://chainofmemories.dev:8080
+security:
+  oauth2:
+    client:
+      clientId: chainofmemories-client
+      clientSecret: keyblade
+      authorizedGrantTypes: password,refresh_token
+      scope: read,write,trust
+      id: chainofmemories
+      accessTokenValiditySeconds: -1
+    resource:
+      userInfoUri: http://chainofmemories.dev:8080/api/v1/me
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost/chainofmemories
+    username: root
+    password: P@ssw0rd
+    driverClassName: com.mysql.jdbc.Driver

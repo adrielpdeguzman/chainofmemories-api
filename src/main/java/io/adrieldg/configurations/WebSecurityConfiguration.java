@@ -32,9 +32,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
     /*@formatter:off*/
     web.ignoring()
-        .antMatchers(HttpMethod.OPTIONS, "/**")
-        // TODO: Remove on production
-        .antMatchers("/console/**");
+        .antMatchers(HttpMethod.OPTIONS, "/**");
     /*@formatter:on*/
   }
 
@@ -67,8 +65,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowCredentials(true);
     config.addAllowedOrigin(this.clientUrl);
-    // TODO: remove on production
-    config.addAllowedOrigin("http://172.16.1.39:8080");
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
     source.registerCorsConfiguration("/**", config);
