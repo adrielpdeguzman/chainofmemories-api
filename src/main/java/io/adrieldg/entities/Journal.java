@@ -21,7 +21,7 @@ public class Journal {
   private Date publishDate;
   private int volume;
   private int day;
-  @Column(length = 10946)
+  @Column(length = 17711)
   private String contents;
   @Column(length = 610)
   private String specialEvents;
