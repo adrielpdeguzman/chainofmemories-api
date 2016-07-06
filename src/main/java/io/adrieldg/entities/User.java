@@ -20,7 +20,7 @@ public class User {
   @JsonBackReference
   private Set<Journal> journals = new HashSet<>();
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @Column(unique = true)
   private String username;
