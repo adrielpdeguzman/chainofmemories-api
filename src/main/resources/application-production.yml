@@ -4,7 +4,7 @@ logging:
   level:
     io.adrieldg: info
 global:
-  clientUrl: http://chainofmemories.sytes.net
+  clientUrl: ${CLIENT_URL}
 security:
   oauth2:
     client:
