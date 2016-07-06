@@ -15,7 +15,7 @@ public class Journal {
   @ManyToOne
   private User user;
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @Temporal(TemporalType.DATE)
   private Date publishDate;
