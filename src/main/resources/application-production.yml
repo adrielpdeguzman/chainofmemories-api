@@ -1,0 +1,26 @@
+server:
+  contextPath: /api/v1/
+logging:
+  level:
+    io.adrieldg: info
+global:
+  clientUrl: http://chainofmemories.sytes.net
+security:
+  oauth2:
+    client:
+      clientId: chainofmemories-client
+      clientSecret: keyblade
+      authorizedGrantTypes: password,refresh_token
+      scope: read,write,trust
+      id: chainofmemories
+      accessTokenValiditySeconds: -1
+    resource:
+      userInfoUri: https://api-chainofmemories.herokuapp.com/api/v1/me
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:mysql://localhost/chainofmemories
+    username: root
+    password: P@ssw0rd
