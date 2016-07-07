@@ -1,11 +1,10 @@
 server:
   contextPath: /api/v1/
-  port: 18080
 logging:
   level:
     io.adrieldg: warn
 global:
-  clientUrl: http://chainofmemories.dev:8080
+  clientUrl: ${CLIENT_URL}
 security:
   oauth2:
     client:
@@ -14,15 +13,18 @@ security:
       authorizedGrantTypes: password,refresh_token
       scope: read,write,trust
       id: chainofmemories
-      accessTokenValiditySeconds: -1
+      accessTokenValiditySeconds: 2592000
     resource:
-      userInfoUri: http://chainofmemories.dev:8080/api/v1/me
+      userInfoUri: /me
 spring:
   jpa:
     hibernate:
       ddl-auto: none
   datasource:
-    url: jdbc:mysql://localhost/chainofmemories
-    username: root
-    password: P@ssw0rd
-    driverClassName: com.mysql.jdbc.Driver
+    url: ${JDBC_DATABASE_URL}
+    driverClassName: org.postgresql.Driver
+    maxActive: 10
+    maxIdle: 5
+    minIdle: 2
+    initialSize: 5
+    removeAbandoned: true
