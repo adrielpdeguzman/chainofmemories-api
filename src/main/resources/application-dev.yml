@@ -1,23 +1,28 @@
 server:
   port: 18080
-  
+  contextPath: /api/v1/
 spring:
   devtools:
     livereload:
       enabled: false
-  h2:
-    console:
-      enabled: true
-      path: /console
-
+  datasource:
+    driverClassName: org.postgresql.Driver
+    initialSize: 5
+    maxActive: 10
+    maxIdle: 5
+    minIdle: 2
+    password: P@ssw0rd
+    removeAbandoned: true
+    username: postgres
+    url: jdbc:postgresql://localhost/postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
 logging:
   level:
     io.adrieldg: DEBUG
-
 global:
   clientUrl: http://chainofmemories.dev:8080
-  anniversary: 2013-12-07
-      
 security:
   oauth2:
     client:
@@ -28,4 +33,4 @@ security:
       id: chainofmemories
       accessTokenValiditySeconds: -1
     resource:
-      userInfoUri: http://localhost:8081/me
+      userInfoUri: /me
