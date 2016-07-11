@@ -1,7 +1,5 @@
 package io.adrieldg.configurations;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,39 +13,31 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
-@Configuration
-@EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+import javax.sql.DataSource;
 
-  @Autowired
-  private AuthenticationManager auth;
+@Configuration @EnableAuthorizationServer public class AuthorizationServerConfiguration
+		extends AuthorizationServerConfigurerAdapter {
 
-  @Autowired
-  private DataSource dataSource;
+	@Autowired private AuthenticationManager auth;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+	@Autowired private DataSource dataSource;
 
-  @Value("${security.oauth2.client.clientId}")
-  private String clientId;
-  @Value("${security.oauth2.client.clientSecret}")
-  private String clientSecret;
-  @Value("${security.oauth2.client.authorizedGrantTypes}")
-  private String[] authorizedGrantTypes;
-  @Value("${security.oauth2.client.scope}")
-  private String[] scope;
-  @Value("${security.oauth2.client.accessTokenValiditySeconds}")
-  private int accessTokenValiditySeconds;
+	@Autowired private PasswordEncoder passwordEncoder;
 
-  @Override
-  public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-    oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
-        .passwordEncoder(passwordEncoder);
-  }
+	@Value("${security.oauth2.client.clientId}") private String clientId;
+	@Value("${security.oauth2.client.clientSecret}") private String clientSecret;
+	@Value("${security.oauth2.client.authorizedGrantTypes}") private String[] authorizedGrantTypes;
+	@Value("${security.oauth2.client.scope}") private String[] scope;
+	@Value("${security.oauth2.client.accessTokenValiditySeconds}") private int accessTokenValiditySeconds;
 
-  @Override
-  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    /*@formatter:off*/
+	@Override public void configure(AuthorizationServerSecurityConfigurer oauthServer)
+			throws Exception {
+		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+				.passwordEncoder(passwordEncoder);
+	}
+
+	@Override public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+	/*@formatter:off*/
     clients.jdbc(dataSource)
         .passwordEncoder(passwordEncoder)
         .withClient(this.clientId)
@@ -56,15 +46,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         .scopes(this.scope)
         .accessTokenValiditySeconds(this.accessTokenValiditySeconds);
     /*@formatter:on*/
-  }
+	}
 
-  @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    endpoints.tokenStore(tokenStore()).authenticationManager(auth);
-  }
+	@Override public void configure(AuthorizationServerEndpointsConfigurer endpoints)
+			throws Exception {
+		endpoints.tokenStore(tokenStore()).authenticationManager(auth);
+	}
 
-  @Bean
-  public JdbcTokenStore tokenStore() {
-    return new JdbcTokenStore(dataSource);
-  }
+	@Bean public JdbcTokenStore tokenStore() {
+		return new JdbcTokenStore(dataSource);
+	}
 }

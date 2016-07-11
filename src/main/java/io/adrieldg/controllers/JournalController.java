@@ -7,21 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.adrieldg.repositories.JournalRepository;
 
-@RestController
-public class JournalController {
+@RestController public class JournalController {
 
-  @Autowired
-  JournalRepository journalRepository;
+	@Autowired JournalRepository journalRepository;
 
-  @RequestMapping(path = "journals/search/getVolumesWithStartDate", method = RequestMethod.GET,
-      produces = "application/json")
-  String getVolumesWithStartDate() {
-    return journalRepository.getVolumesWithStartDate();
-  }
+	@RequestMapping(path = "journals/search/getVolumesWithStartDate", method = RequestMethod.GET,
+			produces = "application/json") String getVolumesWithStartDate() {
+		return journalRepository.getVolumesWithStartDate();
+	}
 
-  @RequestMapping(path = "journals/search/getDatesWithoutEntry", method = RequestMethod.GET,
-      produces = "application/json")
-  String getDatesWithoutEntry() {
-    return journalRepository.getDatesWithoutEntry();
-  }
+	@RequestMapping(path = "journals/search/getDatesWithoutEntry", method = RequestMethod.GET,
+			produces = "application/json") String getDatesWithoutEntry() {
+		return journalRepository.getDatesWithoutEntry();
+	}
 }

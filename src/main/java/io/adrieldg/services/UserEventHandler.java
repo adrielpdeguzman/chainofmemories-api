@@ -8,15 +8,11 @@ import org.springframework.stereotype.Component;
 
 import io.adrieldg.entities.User;
 
-@Component
-@RepositoryEventHandler(User.class)
-public class UserEventHandler {
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+@Component @RepositoryEventHandler(User.class) public class UserEventHandler {
+	@Autowired private PasswordEncoder passwordEncoder;
 
-  @HandleBeforeCreate
-  public void handleUserCreate(User user) {
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-  }
+	@HandleBeforeCreate public void handleUserCreate(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+	}
 
 }
