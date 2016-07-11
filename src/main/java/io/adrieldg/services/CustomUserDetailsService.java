@@ -23,20 +23,19 @@ import org.springframework.stereotype.Service;
 import io.adrieldg.entities.User;
 import io.adrieldg.repositories.UserRepository;
 
-@Service
-public class CustomUserDetailsService implements UserDetailsService {
+@Service public class CustomUserDetailsService implements UserDetailsService {
 
-  @Autowired
-  private UserRepository userRepository;
+	@Autowired private UserRepository userRepository;
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByUsername(username);
-    if (user == null) {
-      throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
-    }
-    return new org.springframework.security.core.userdetails.User(user.getUsername(),
-        user.getPassword(), true, true, true, true, AuthorityUtils.createAuthorityList("USER"));
-  }
+	@Override public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username);
+		if (user == null) {
+			throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
+		}
+		return new org.springframework.security.core.userdetails.User(user.getUsername(),
+				user.getPassword(), true, true, true, true,
+				AuthorityUtils.createAuthorityList("USER"));
+	}
 
 }

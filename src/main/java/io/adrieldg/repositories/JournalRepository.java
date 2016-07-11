@@ -11,33 +11,25 @@ import java.util.Collection;
 
 import io.adrieldg.entities.Journal;
 
-@RepositoryRestResource(path = "journals")
-public interface JournalRepository
-    extends PagingAndSortingRepository<Journal, Long>, JournalRepositoryCustom {
+@RepositoryRestResource(path = "journals") public interface JournalRepository
+		extends PagingAndSortingRepository<Journal, Long>, JournalRepositoryCustom {
 
-  @RestResource(path = "findByVolume")
-  Collection<Journal> findByVolumeOrderByPublishDateAsc(@Param("v") Integer volume);
+	@RestResource(path = "findByVolume") Collection<Journal> findByVolumeOrderByPublishDateAsc(
+			@Param("v") Integer volume);
 
-  @RestResource(path = "findByContentsAndVolume")
-  Collection<Journal> findByContentsContainingIgnoreCaseAndVolumeOrderByPublishDateDesc(
-      @Param("q") String contents, @Param("v") Integer volume);
+	@RestResource(path = "findByContentsAndVolume") Collection<Journal> findByContentsContainingIgnoreCaseAndVolumeOrderByPublishDateDesc(
+			@Param("q") String contents, @Param("v") Integer volume);
 
-  @RestResource(path = "findByContents")
-  Collection<Journal> findByContentsContainingIgnoreCaseOrderByPublishDateDesc(
-      @Param("q") String contents);
+	@RestResource(path = "findByContents") Collection<Journal> findByContentsContainingIgnoreCaseOrderByPublishDateDesc(
+			@Param("q") String contents);
 
-  @Query(value = "select * from journals offset floor(random() * (select count(*) from journals))" +
-      "LIMIT 1;", nativeQuery = true)
-  Journal findRandom();
+	@Query(value = "select * from journals offset floor(random() * (select count(*) from journals))"
+			+ "LIMIT 1;", nativeQuery = true) Journal findRandom();
 
-  @Query(value = "select volume from journals order by volume desc limit 1", nativeQuery = true)
-  Integer getCurrentVolume();
+	@Query(value = "select volume from journals order by volume desc limit 1", nativeQuery = true) Integer getCurrentVolume();
 
-  @Override
-  @PreAuthorize("#journal?.user == null or #journal?.user?.username == authentication?.name")
-  Journal save(@Param("journal") Journal journal);
+	@Override @PreAuthorize("#journal?.user == null or #journal?.user?.username == authentication?.name") Journal save(
+			@Param("journal") Journal journal);
 
-  @Override
-  @RestResource(exported = false)
-  void delete(Journal journal);
+	@Override @RestResource(exported = false) void delete(Journal journal);
 }

@@ -21,45 +21,31 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "users")
-@Data
-@ToString(exclude = "password")
-public class User {
-  @OneToMany(mappedBy = "user")
-  @JsonBackReference
-  private Set<Journal> journals = new HashSet<>();
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  @Column(unique = true)
-  private String username;
-  @Getter(AccessLevel.NONE)
-  @Setter(AccessLevel.NONE)
-  @JsonIgnore
-  private String password;
-  @Column(unique = true)
-  private String email;
-  private String firstName;
-  private String lastName;
+@Entity @Table(name = "users") @Data @ToString(exclude = "password") public class User {
+	@OneToMany(mappedBy = "user") @JsonBackReference private Set<Journal> journals = new HashSet<>();
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	@Column(unique = true) private String username;
+	@Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) @JsonIgnore private String password;
+	@Column(unique = true) private String email;
+	private String firstName;
+	private String lastName;
 
-  public User(String username, String password, String email, String firstName, String lastName) {
-    this.username = username;
-    this.password = password;
-    this.email = email;
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
+	public User(String username, String password, String email, String firstName, String lastName) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-  User() {}
+	User() {
+	}
 
-  @JsonIgnore
-  public String getPassword() {
-    return password;
-  }
+	@JsonIgnore public String getPassword() {
+		return password;
+	}
 
-  @JsonProperty
-  public void setPassword(String password) {
-    this.password = password;
-  }
+	@JsonProperty public void setPassword(String password) {
+		this.password = password;
+	}
 }

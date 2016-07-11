@@ -19,57 +19,47 @@ import org.springframework.web.filter.CorsFilter;
 
 import io.adrieldg.services.CustomUserDetailsService;
 
-@Configuration
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Configuration public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  CustomUserDetailsService userDetailsService;
+	@Autowired CustomUserDetailsService userDetailsService;
 
-  @Value("${global.clientUrl}")
-  private String clientUrl;
+	@Value("${global.clientUrl}") private String clientUrl;
 
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    /*@formatter:off*/
+	@Override public void configure(WebSecurity web) throws Exception {
+	/*@formatter:off*/
     web.ignoring()
         .antMatchers(HttpMethod.OPTIONS, "/**");
     /*@formatter:on*/
-  }
+	}
 
-  @Override
-  public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-  }
+	@Override public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
 
-  @Override
-  @Bean
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+	@Override @Bean public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-  @Bean(name = "passwordEncoder")
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+	@Bean(name = "passwordEncoder") public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    /*@formatter:off*/
+	@Override protected void configure(HttpSecurity http) throws Exception {
+	/*@formatter:off*/
     http.authorizeRequests().anyRequest().authenticated();
     /*@formatter:on*/
-  }
+	}
 
-  @Bean
-  public FilterRegistrationBean corsFilter() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration config = new CorsConfiguration();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin(this.clientUrl);
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
-    source.registerCorsConfiguration("/**", config);
-    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-    bean.setOrder(0);
-    return bean;
-  }
+	@Bean public FilterRegistrationBean corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin(this.clientUrl);
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		bean.setOrder(0);
+		return bean;
+	}
 }
